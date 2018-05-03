@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <title>入库</title>
+    <link type="text/css" rel="stylesheet" href="/static/add/add.css">
+</head>
+
+<body>
+<div class="main">
+    <br>
+    <p>
+        <form class="logout" action="/logout" method="POST">
+            <input class="logout_submit" type="submit" value="退出登录">
+            {{ form.csrf_token }}
+        </form>
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>
+        请输入红包档次：
+        <br>
+        <input id="level" class="level_input" type="text" placeholder="输入红包档次(15,20,45,60,100,188,226,360,600)"/>
+        <br>
+        请输入红包链接：
+        <br>
+        <input id="gaohongjie" class="link_input" type="text" placeholder="将红包链接复制在这里，然后点击提交"/>
+        <br>
+        <br>
+        <button id="submitbtn" class="submit_button">提交</button>
+        <br>
+    </p>
+    <script type="text/javascript">
+        var xmlHttpRequest;
+        var url;
+
+        document.getElementById("submitbtn").addEventListener("click", function (e) {
+            len0 = document.getElementById("gaohongjie").value.length
+            len1 = document.getElementById("level").value.length
+            if (len0 <= 0 || len1 <= 0)
+                return
+            url = "/addlink?link=" + encodeURIComponent(document.getElementById("gaohongjie").value) + "&level=" + encodeURIComponent(document.getElementById("level").value);
+            console.log(url)
+            try {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlHttpRequest = new XMLHttpRequest();
+            } catch (e) {
+                // code for IE6, IE5
+                xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlHttpRequest.onreadystatechange = recvlink;
+            xmlHttpRequest.open("GET", url, true);
+            xmlHttpRequest.send();
+            document.getElementById("gaohongjie").value = ""
+            document.getElementById("level").value = ""
+        });
+
+        function recvlink() {
+            if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                var b = xmlHttpRequest.responseText;
+                alert(b);
+            }
+        };
+    </script>
+</div>
+</body>
+
+</html>

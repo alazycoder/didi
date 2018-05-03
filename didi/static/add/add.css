@@ -1,0 +1,41 @@
+.main {
+	text-align: center;
+}
+
+.logout {
+    width: 90%;
+    text-align: right;
+}
+
+.logout_submit {
+    color: blue;
+    font-size: 17px;
+}
+
+.input_form {
+	width: 100%;
+}
+
+.link_input, .level_input {
+	width: 80%;
+	text-align: center;
+    height: 44px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.submit_button_disable{
+	width: 80%;
+    height: 34px;
+    border: none;
+    color: white;
+    background: #e5e5e5;
+}
+
+.submit_button {
+	width: 80%;
+    height: 34px;
+    border: none;
+    color: white;
+    background:#fc9153;
+}

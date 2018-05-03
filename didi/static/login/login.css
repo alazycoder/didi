@@ -1,0 +1,30 @@
+.main {
+	text-align: center;
+	padding-top: 10px;
+	padding-right: 27px;
+	padding-bottom: 20px;
+	padding-left: 27px;
+}
+
+.input_form{
+	width: 100%;
+}
+
+.info_input,{
+	width: 100%;
+	text-align: center;
+    height: 44px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.submit_button{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:5px;
+    padding-bottom:5px;
+    border: none;
+    color: white;
+    background:green;
+    border-radius:5px;
+}

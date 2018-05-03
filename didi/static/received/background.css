@@ -1,0 +1,28 @@
+.back{
+    width: 100%;
+    background: url("/static/received/we1.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
+}
+
+.main{
+    text-align: center;
+}
+
+.result{
+    margin-top:20%;
+    color: tomato;
+    font-size: x-large;
+}
+
+.guide{
+    margin-top:10%;
+    color: tomato;
+    font-size: x-large;
+}
+
+.ma{
+    margin-top: 5%;
+    width: 200px;
+    height: 200px;
+}

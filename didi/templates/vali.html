@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta chaset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1.0, user-scalable=no"
+    />
+    <title>红包领取</title>
+    <script>
+        //激活 ios中 css active伪类
+        window.onload = function () {
+            document.body.addEventListener('touchstart', function () { });
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/vali/vali.css" />
+</head>
+
+<body class="back">
+    <div class="main">
+        <div class="info">
+            <p>添加微信进群免费领取更多优惠券</p>
+            <p><b class="weixinhao">3211587885</b></p>
+            <p>微信QQ同步</p>
+        </div>
+        <input type="number" id="phone_number_input" class="hb-input" placeholder="输入手机号领取红包" />
+        <input type="number" id="valicode_input" class="code-input" placeholder="请输入验证码" />
+        <button id="valicode_get" class="code-btn disable" disabled="true">获取验证码</button>
+        <button id="get_button" class="didi-btn didi-btn-highlight hb-btn disable" data-eid="xred_m_x_info_lingqu_ck" disabled="true">立即领取</button>
+        <script type="text/javascript">
+            var xmlHttpRequest;
+            var url;
+
+            document.getElementById("valicode_get").addEventListener("click", function (e) {
+                document.getElementById("valicode_get").disabled = true
+                url = "/getvalicode?phone=" + encodeURIComponent(document.getElementById("phone_number_input").value);
+                try {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlHttpRequest = new XMLHttpRequest();
+                } catch (e) {
+                    // code for IE6, IE5
+                    xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpRequest.onreadystatechange = recvcode;
+                xmlHttpRequest.open("GET", url, true);
+                xmlHttpRequest.send();
+            });
+
+
+            function recvcode() {
+                if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                    var b = xmlHttpRequest.responseText
+                    document.getElementById("valicode_get").innerHTML = b
+                    document.getElementById("valicode_get").className = "code-btn disable"
+                }
+            }
+
+            document.getElementById("get_button").addEventListener("click", function (e) {
+                url = "/getpacket?id=" + encodeURIComponent("{{id}}") + "&uid=" + encodeURIComponent("{{uid}}") + "&level=" + encodeURIComponent("{{level}}") + "&phone=" + encodeURIComponent(document.getElementById("phone_number_input").value) + "&code=" + encodeURIComponent(document.getElementById("valicode_input").value);
+                console.log(url)
+                try {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlHttpRequest = new XMLHttpRequest();
+                } catch (e) {
+                    // code for IE6, IE5
+                    xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttpRequest.onreadystatechange = recvlink;
+                xmlHttpRequest.open("GET", url, true);
+                xmlHttpRequest.send();
+                document.getElementById("get_button").innerHTML = "请稍等..."
+                document.getElementById("get_button").disable = true
+            });
+
+            function recvlink() {
+                if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                    var b = xmlHttpRequest.responseText
+                    document.getElementById("get_button").className = "didi-btn didi-btn-highlight hb-btn disable"
+                    document.getElementById("get_button").disabled = true
+                    document.getElementById("phone_number_input").disabled = true
+
+                    if (parseInt(b) > 0) {
+                        to_url = "http://lovelu.site/received?id=" + "{{id}}"
+                        window.location.href = to_url
+                    }
+                    else if (parseInt(b) == '-1') {
+                        document.getElementById("get_button").innerHTML = "请提醒店家补充库存并重新发货"
+                    }
+                    else {
+                        document.getElementById("get_button").innerHTML = "充值失败，请联系店家"
+                    }
+
+                }
+            };
+
+
+            document.getElementById("phone_number_input").addEventListener("input", function (e) {
+                console.log(e.target.value.length);
+                if (e.target.value.length === 11) {
+                    document.getElementById("valicode_get").className = "code-btn"
+                    document.getElementById("valicode_get").disabled = false
+                    console.log(document.getElementById("valicode_get").disabled)
+                }
+                else {
+                    document.getElementById("valicode_get").className = "code-btn disable"
+                    document.getElementById("valicode_get").disabled = true
+                    console.log(document.getElementById("valicode_get").disabled)
+                }
+            });
+
+            document.getElementById("valicode_input").addEventListener("input", function (e) {
+                console.log(e.target.value.length);
+                if (e.target.value.length === 4) {
+                    document.getElementById("get_button").className = "didi-btn didi-btn-highlight hb-btn"
+                    document.getElementById("get_button").disabled = false
+                    console.log(document.getElementById("get_button").disabled)
+                }
+                else {
+                    document.getElementById("get_button").className = "didi-btn didi-btn-highlight hb-btn disable"
+                    document.getElementById("get_button").disabled = true
+                    console.log(document.getElementById("get_button").disabled)
+                }
+            });
+
+        </script>
+    </div>
+</body>
+
+</html>
