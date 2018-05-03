@@ -1,29 +1,28 @@
-# didi
-TODO：
-    验证码校验失败后不再继续
-
+# TODO
+验证码校验失败后不再继续
+# 激活virtualenv
 source venv/bin/activate
 
-uwsgi
+# uwsgi
     启动方式： 配置启动
     启动文件： /home/gaohongjie/didi/config.ini
     手动启动方式： uwsgi config.ini
-Supervisor：
+# Supervisor：
     作用： 可以同时启动多个应用，当某个应用Crash的时候，他可以自动重启该应用，保证可用性。
     配置文件位置：/etc/supervisor/conf.d/my_flask_supervisor.conf
     启动服务 : sudo service supervisor start
     终止服务 : sudo service supervisor stop
-ngix:
+# ngix:
     配置文件位置：/etc/nginx/sites-available/default
     重启服务： sudo service nginx start
     sudo service nginx stop
     sudo service nginx restart
 
 
-log:  logs/uwsgi_supervisor.log
+# log:  
+logs/uwsgi_supervisor.log
 
-source venv/bin/activate
-
+# start & stop
 sudo service nginx stop
 sudo service supervisor stop
 sudo lsof -i:8001
@@ -35,23 +34,23 @@ sudo service supervisor start
 sudo service nginx start
 
 
-/etc/supervisor/conf.d/my_flask_supervisor.conf:
+# /etc/supervisor/conf.d/my_flask_supervisor.conf:
 
 [program:didi]
-# 启动命令入口
+#启动命令入口
 command=/root/development/venv/bin/uwsgi  /root/development/didi/config.ini
 
-# 命令程序所在目录
+#命令程序所在目录
 directory=/root/development/didi
-# 运行命令的用户名
-# user=root
+#运行命令的用户名
+#user=root
 
 autostart=true
 autorestart=true
 #日志地址
 stdout_logfile=/root/development/didi/logs/uwsgi_supervisor2.log
 
-/etc/nginx/sites-available/default:
+# /etc/nginx/sites-available/default:
 
 server {
 	  listen  80;
